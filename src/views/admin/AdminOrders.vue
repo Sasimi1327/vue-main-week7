@@ -93,7 +93,6 @@ export default {
       this.$http.get(url)
         .then(res => {
           this.isLoading = false
-          console.log('訂單列表', res.data.orders)
           this.orders = res.data.orders
           this.pagination = res.data.pagination
         })
@@ -135,12 +134,10 @@ export default {
         })
     },
     openModal (order) {
-      console.log('檢視訂單')
       this.selectOrder = { ...order }
       this.$refs.orderModal.modal.show()
     },
     openDelModal (order) {
-      console.log('刪除訂單', order)
       this.selectOrder = { ...order }
       this.$refs.delModal.modal.show()
     },
@@ -175,7 +172,6 @@ export default {
     DeleteModal
   },
   mounted () {
-    console.log('mounted', this)
     this.getOrders()
   }
 }

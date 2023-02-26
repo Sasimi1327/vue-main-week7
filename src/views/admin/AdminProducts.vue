@@ -101,7 +101,6 @@ export default {
       this.isLoading = true
       this.$http.get(url)
         .then(res => {
-          console.log('商品列表', res.data)
           this.products = res.data.products
           this.pagination = res.data.pagination
           this.isLoading = false

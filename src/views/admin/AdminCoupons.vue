@@ -165,7 +165,6 @@ export default {
     },
     openModal (coupon) {
       if (coupon) { // 更新
-        console.log('Update')
         this.isNew = false
         this.selectCoupon = { ...coupon }
       } else { // 新增
