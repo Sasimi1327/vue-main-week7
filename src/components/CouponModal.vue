@@ -35,14 +35,16 @@
               v-model="selectCoupon.code"
               placeholder="請輸入優惠碼">
           </div>
-          <div class="mb-3">
-            <label for="due_date">到期日</label>
-            <input
-              type="date"
-              class="form-control"
+          <label for="due_date">到期日</label>
+          <!-- <div class="mb-3"> -->
+            <VueDatePicker
+              class="mb-3 px-1"
               id="due_date"
-              v-model="due_date">
-          </div>
+              :allowed-dates="allowedDates"
+              :min-date="new Date()"
+              :enable-time-picker="false"
+              v-model="due_date" />
+          <!-- </div> -->
           <div class="mb-3">
             <label for="discount">折扣百分比</label>
             <input type="number"
@@ -50,6 +52,7 @@
                   id="discount"
                   min="0"
                   max="100"
+                  @change="rangeValue"
                   v-model.number="selectCoupon.percent"
                   placeholder="請輸入折扣百分比">
           </div>
@@ -96,6 +99,17 @@ export default {
       const dateAndTime = new Date(this.selectCoupon.due_date * 1000)
         .toISOString().split('T');
       [this.due_date] = dateAndTime
+    }
+  },
+  methods: {
+    rangeValue (evt) {
+      const inputValue = evt.target.value
+      console.log('rangeValue', inputValue, evt)
+      if (Number.parseInt(inputValue) > 100) {
+        this.selectCoupon.percent = 100
+      } else if (Number.parseInt(inputValue) < 100) {
+        this.selectCoupon.percent = 0
+      }
     }
   },
   mounted () {

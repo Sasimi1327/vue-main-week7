@@ -37,7 +37,7 @@
 </template>
 
 <script>
-
+import Swal from 'sweetalert2'
 const { VITE_APP_URL } = import.meta.env
 
 export default {
@@ -56,10 +56,20 @@ export default {
         .then(res => {
           const { token, expired } = res.data
           document.cookie = `hexToken=${token}; expires=${new Date(expired)};`
+          Swal.fire({
+            icon: 'success',
+            title: '登入成功',
+            confirmButtonText: 'OK'
+          })
           this.$router.push('/admin/products')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: `錯誤 ${err.response.status}`,
+            text: err.response.data.message,
+            confirmButtonText: 'OK'
+          })
         })
     }
   }

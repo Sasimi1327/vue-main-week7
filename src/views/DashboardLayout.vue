@@ -59,14 +59,14 @@ export default {
       this.$http.post(url)
         .then(res => {
           this.status = true
-          Swal.fire({
-            icon: 'success',
-            title: '登入成功',
-            confirmButtonText: 'OK'
-          })
         })
         .catch(err => {
-          console.log('checkAuth', err)
+          Swal.fire({
+            icon: 'error',
+            title: `錯誤 ${err.response.status}`,
+            text: err.response.data.message,
+            confirmButtonText: 'OK'
+          })
           this.$router.push('/')
         })
     }
