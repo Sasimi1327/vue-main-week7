@@ -99,15 +99,17 @@ export default {
       const dateAndTime = new Date(this.selectCoupon.due_date * 1000)
         .toISOString().split('T');
       [this.due_date] = dateAndTime
+    },
+    due_date () {
+      this.selectCoupon.due_date = Math.floor(new Date(this.due_date) / 1000)
     }
   },
   methods: {
     rangeValue (evt) {
       const inputValue = evt.target.value
-      console.log('rangeValue', inputValue, evt)
       if (Number.parseInt(inputValue) > 100) {
         this.selectCoupon.percent = 100
-      } else if (Number.parseInt(inputValue) < 100) {
+      } else if (Number.parseInt(inputValue) < 0) {
         this.selectCoupon.percent = 0
       }
     }
